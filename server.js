@@ -54,8 +54,7 @@ function init()
     User.create({
         username:"sandeep",
         email:"sandeepbhartiya9087@gmail.com",
-        password:bcrypt.hashSync("Welcome"),
-        roles:"admin"        
+        password:bcrypt.hashSync("Welcome")    
     });
 }
 

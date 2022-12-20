@@ -5,15 +5,15 @@ exports.createProduct=(req,res)=>{
     const productobj={
         name:req.body.name,
         description:req.body.description,
-        cost:req.body.cost
+        cost:req.body.cost,
+        categoryId:req.body.categoryId
     }
 
     Product.create(productobj).then(product=>{
         console.log("#### Product Created successfully ####");
         res.status(201).send({
             message:"Product Successfully Created"
-        })
-     
+        });
     }).catch(err=>{
         console.log("Error while creating product",err.message);
         res.status(500).send({

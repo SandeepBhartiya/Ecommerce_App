@@ -1,4 +1,6 @@
 const db=require('../models');
+const Notification=require('../utils/Notification');
+const User=db.user;
 const Cart=db.cart;
 const Product=db.product;
 
@@ -17,7 +19,10 @@ exports.createCart=(req,res)=>{
 }
 
 exports.updateCart=(req,res)=>{
+
     Cart.findByPk(req.params.id).then(cart=>{
+        // const user=User.findByPk(cart.userId);
+        // console.log("Cart is here bro:",cart.userId,user);
         var productIds=req.body.productIds;
         Product.findAll({
             where:{
@@ -26,10 +31,10 @@ exports.updateCart=(req,res)=>{
         }).then(products=>{
             if(!products)
             {
-                res.status(400).send({
+                return res.status(400).send({
                     message:"Products trying to add doesn't exist"
                 });
-                return;
+                
             }
             cart.setProducts(products).then(()=>{
                 console.log("Products successfully added to the cart");
@@ -45,15 +50,18 @@ exports.updateCart=(req,res)=>{
                         });
                         cost=cost+cartProducts[i].cost;
                     }
+                    
+                    Notification(`Product created with id:${cart.id}`,`total Amount paid for Product Purchase is ${cost} Rs`,`sandeepbhartiya987@gmail.com`,"Ecommerce App");
                     res.status(200).send({
                         id:cart.id,
                         productsSelected:productsSelected,
                         cost:cost
-                    })
-                })
+                    });
+                });
                
-            })
-        })
+            });
+        });
+      
     }).catch(err=>{
         console.log("error while updating Cart",err.message);
         res.status(500).send({

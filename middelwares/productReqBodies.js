@@ -1,5 +1,6 @@
-const { response } = require("express");
 
+const {category}=require("../models")
+// const category=db.category;
 const validateProductRequest=(req,res,next)=>{
     try
     {   
@@ -45,23 +46,25 @@ const validateProductRequest=(req,res,next)=>{
         if(req.body.categoryId)
         {
             category.findByPk(req.body.categoryId).then(category=>{
+                console.log("CategoryId:",category)
                 if(!category)
                 {
                     return res.status(400).send({
                         message:"Category id is not provided"
                     });
+                   
                 }
                 next();
             })
         }
         else
         {
-            res.status(400).send({
+            return res.status(400).send({
                 message:"Category id  is not provided"
             });
-            return;
+          
         }
-        next();
+      
     }
     catch(err)
     {
