@@ -10,12 +10,12 @@ exports.createProduct=(req,res)=>{
     }
 
     Product.create(productobj).then(product=>{
-        console.log("#### Product Created successfully ####");
+        console.log("\n #### Product Created successfully #### \n");
         res.status(201).send({
             message:"Product Successfully Created"
         });
     }).catch(err=>{
-        console.log("Error while creating product",err.message);
+        console.log("\n #### Error while creating product #### \n",err.message);
         res.status(500).send({
             message:"Internal Server Error"
         })
@@ -31,7 +31,7 @@ exports.findAll=(req,res)=>{
     }).then(user=>{
         res.status(200).send(user)
     }).catch(err=>{
-        console.log("Error while searching ",err.message);
+        console.log("\n #### Error while searching product ####",err.message);
         res.status(500).send({
             message:"Internal Server Error"
         })
@@ -46,7 +46,7 @@ exports.findOne=(req,res)=>{
     }).then(product=>{
         res.status(200).send(product)
     }).catch(err=>{
-        console.log("Error while finding product",err.message);
+        console.log("\n #### Error while finding product #### \n",err.message);
         res.status(500).send({
             message:"Server Internal Error"
         })
@@ -59,12 +59,12 @@ exports.deleteProduct=(req,res)=>{
             id:req.params.id
         }
     }).then(result=>{
-        console.log("#### product Delete successfully ####")
+        console.log("\n #### product Delete successfully #### \n")
         res.status(200).send({
             message:"product Delete successfully"
         })
     }).catch(err=>{
-        console.log("Error while deleting products",err.message);
+        console.log("\n #### Error while deleting products #### \n",err.message);
         res.status(500).send({
             message:"Internal Server Error"
         })
@@ -84,7 +84,7 @@ exports.updateProduct=(req,res)=>{
         }
     }).then(updateProduct=>{
         Product.findByPk(req.params.id).then(product=>{
-            console.log(` update successfully ${product.name} product`)
+            console.log(`\n #### update successfully ${product.name} product #### \n`)
             res.status(200).send(product);
         }).catch(err=>{
             res.status(500).send({
@@ -94,7 +94,7 @@ exports.updateProduct=(req,res)=>{
             
         
     }).catch(err=>{
-        console.log("Error while updating",err.message);
+        console.log("\n #### Error while updating #### \n",err.message);
         res.status(500).send({
             message:"Internal Server Error"
         })

@@ -44,6 +44,7 @@ const isAdmin=(req,res,next)=>{
         })
     })
 }
+
 const authValidaton={
     jwtVerify:jwtVerify,
     isAdmin:isAdmin

@@ -17,47 +17,29 @@ exports.singUp=(req,res)=>{
     };
 
     User.create(userObj).then(user=>{
-        console.log("User Created")
-        // if(req.body.roles)
-        // {
-        //     console.log("Roles",req.body.roles)
-        //     Role.findAll({
-        //         where:{
-        //             name:{
-        //                 [Op.or]:req.body.roles
-        //             }
-        //         }\
-        console.log("1");
         if (req.body.roles) {
-            // I need to first have the Roles created in the system
-            console.log("2");
-            // I need to check if the desired roles match with the supported roles
             Role.findAll({
                 where: {
                     name: req.body.roles
                 }
             }).then(roles=>{
-                console.log("3");
-                console.log("roles",roles);
                 user.setRoles(roles).then(()=>{
-                    console.log("registration completed");
+                    console.log("\n #### Registration Completed #### \n");
                     res.status(201).send({
                         message:"User successfully register"
                     })
                 })
             })
         }else{
-            console.log("4");
             user.setRoles([1]).then(()=>{
-                console.log("registered completed ")
+                console.log("\n #### Registered Completed #### \n")
                 res.status(201).send({
                     message:"User successfully Register"
                 })
             })
         }
     }).catch(err=>{
-        console.log("5")
-        console.log("Error while creating user",err.message);
+        console.log("\n #### Error while creating user #### \n",err.message);
         res.status(500).send({
             message:"Some Internal Error "
         })
@@ -72,17 +54,13 @@ exports.signIn=(req,res)=>{
             email:req.body.email
         }
     }).then(user=>{
-        if(!user)
-        {
-            res.status(404).send({
-                message:"User Not Found"
-            })
-            return;
-        }
+      
         const token=jwt.sign({id:user.id},secretKey.secret,{
             expiresIn:6000
         });
 
+        console.log("\n #### User successfully Login #### \n");
+        
         res.status(200).send({
             username:user.username,
             email:user.email,
@@ -90,7 +68,7 @@ exports.signIn=(req,res)=>{
             token:token
         });
     }).catch(err=>{
-        console.log("Error while singIn",err.message);
+        console.log("\n #### Error while user singIn #### \n",err.message);
         res.status(500).send({
             message:"Internal Server Error"
         });

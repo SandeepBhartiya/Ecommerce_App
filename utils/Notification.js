@@ -20,7 +20,7 @@ module.exports=(subject,content,recepient,requester)=>{
     }
     try
     {
-        client.post("http://localhost:8088/notiserv/api/v1/notifications",args,(data,res)=>{
+        client.post("http://localhost:8088/ecomm/api/v1/notifications",args,(data,res)=>{
             console.log("Request Sent");
             console.log(data);
         })

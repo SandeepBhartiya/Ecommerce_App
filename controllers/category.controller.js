@@ -7,10 +7,10 @@ exports.createCategory=(req,res)=>{
         description:req.body.description
     }
     Category.create(categoryObj).then(category=>{
-        console.log("#### category created successfully ####");
+        console.log("\n #### category created successfully #### \n");
         res.status(201).send(category);
     }).catch(err=>{
-        console.log("error while creating category",err.message);
+        console.log("\n #### error while creating category #### \n",err.message);
         res.status(500).send({
             message:"Internal server error while creating category"
         });
@@ -26,7 +26,7 @@ exports.findAll=(req,res)=>{
     }).then(category=>{
         res.status(200).send(category)
     }).catch(err=>{
-        console.log("Error while finding category",err.message);
+        console.log("\n #### Error while finding category #### \n",err.message);
         res.status(500).send({
             message:"Internal server error while finding category"
         })
@@ -42,7 +42,7 @@ exports.findOne=(req,res)=>{
     }).then(category=>{
         res.status(200).send(category)
     }).catch(err=>{
-        console.log("Error while finding category",err.message);
+        console.log("\n #### Error while finding category #### \n",err.message);
         res.status(500).send({
             message:"Internal server error while finding category"
         })
@@ -56,12 +56,12 @@ exports.deleteCategory=(req,res)=>{
             id:req.params.id
         }
     }).then(category=>{
-        console.log("#### category deleted successfully ####");
+        console.log("\n #### category deleted successfully #### \n");
         res.status(200).send({
             message:"category deleted successfully"
         })
     }).catch(err=>{
-        console.log("Error while finding category",err.message);
+        console.log("\n #### Error while finding category #### \n",err.message);
         res.status(500).send({
             message:"Internal server error while deleting category"
         })
@@ -80,7 +80,7 @@ exports.updateCategory=(req,res)=>{
         }
     }).then(category=>{
         Category.findByPk(req.params.id).then(category=>{
-            console.log("#### category updated successfully ####");
+            console.log("\n #### category updated successfully #### \n");
             res.status(200).send(category)
         }).catch(err=>{
             res.status(500).send({
@@ -88,7 +88,7 @@ exports.updateCategory=(req,res)=>{
             })
         })
     }).catch(err=>{
-        console.log("Error while updating category",err.message);
+        console.log("\n #### Error while updating category #### \n",err.message);
         res.status(500).send({
             message:"Internal server error while updating category"
         })
